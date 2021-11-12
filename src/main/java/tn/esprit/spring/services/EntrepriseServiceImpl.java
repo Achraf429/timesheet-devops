@@ -85,7 +85,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 	}
 
 	
-
+ 
 	public Entreprise getEntrepriseById(int entrepriseId) {
 		Entreprise x=null ;
 		try {
