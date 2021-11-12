@@ -74,7 +74,6 @@ public class EntrepriseServiceImplTest {
 		try {
 
 		Entreprise getEntreprise = es.getEntrepriseById(1);
-	//	assertEquals(2L, getEntreprise.getId());
 		l.info("End get Entreprise test method");
 			}
 		 catch (NullPointerException e) {
