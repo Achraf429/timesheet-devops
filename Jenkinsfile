@@ -1,31 +1,36 @@
-pipeline {
-  
-    agent any
-  
-    stages {
-        stage("init") {
-          
-            steps {
-                echo 'init the application...'
-            }
-        }
-        stage("build") {
-          
-            steps {
-               echo 'build the application...'
-            }
-        }
-        stage("test") {
-          
-            steps {
-                echo 'testing the application...'
-            }
-        }
-        stage("deploy") {
-          
-            steps {
-               echo 'deploying the application...'
-            }
-        }
-    }   
+pipeline{
+
+   agent{label 'windows' }
+
+   options{
+    buildDiscarder{ logRotator(numTokeepStr: '5')}
+
+}
+  environment {
+DOCKERHUB_CREDENTIALS = credentials('darinpope-dockerhub')
+
+}
+stages {
+
+ stage('build'){
+steps{
+ sh 'docker build -f Dockerfile -t docker-spring-boot.jar .'
+}
+}
+ stage('Login'){
+steps{
+sh 'echo $DOCKERHUB_CREDENTIALS_PW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-prototype'
+}
+}
+stage('Push'){
+  steps{
+sh 'docker push 193jmt2074/docker-spring-boot.jar'
+}
+}
+}
+post {
+always{
+sh 'docker logout'
+}
+}
 }
