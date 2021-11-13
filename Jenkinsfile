@@ -19,7 +19,7 @@ steps{
 }
  stage('Login'){
 steps{
-sh 'echo $DOCKERHUB_CREDENTIALS_PW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-prototype'
+sh 'echo $DOCKERHUB_CREDENTIALS_PW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-root'
 }
 }
 stage('Push'){
